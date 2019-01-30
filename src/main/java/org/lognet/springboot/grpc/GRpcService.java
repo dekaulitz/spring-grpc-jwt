@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.lang.annotation.*;
 
 /**
- *
  * Marks the annotated class to be registered as grpc-service bean;
- * @author  Furer Alexander
+ *
+ * @author Furer Alexander
  * @since 0.0.1
  */
 @Target(ElementType.TYPE)
@@ -17,5 +17,6 @@ import java.lang.annotation.*;
 @Service
 public @interface GRpcService {
     Class<? extends ServerInterceptor>[] interceptors() default {};
+
     boolean applyGlobalInterceptors() default true;
 }

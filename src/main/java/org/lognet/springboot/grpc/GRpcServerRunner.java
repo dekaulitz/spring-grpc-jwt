@@ -107,7 +107,7 @@ public class GRpcServerRunner implements CommandLineRunner, DisposableBean {
                                 applicationContext.getBean(interceptorClass) :
                                 interceptorClass.newInstance();
                     } catch (Exception e) {
-                        throw new BeanCreationException("Failed to create interceptor instance.", e);
+                        throw new BeanCreationException("Failed to create middleware instance.", e);
                     }
                 });
 
