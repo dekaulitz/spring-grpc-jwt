@@ -33,7 +33,11 @@ message UserEntity {
 message Users {
     repeated UserEntity userEntity = 1;
 }
-
+message JwtUser {
+    int64 id = 1;
+    string token = 2;
+    string name = 3;
+}
 message QueryParams {
     int32 page = 1;
 }
@@ -49,6 +53,7 @@ message StreamFromClient {
  */
 
 service UserService {
+    rpc login (UserEntity) returns (JwtUser);
     rpc register (UserEntity) returns (UserEntity);
     rpc listUsers (QueryParams) returns (Users);
     rpc streamUsers (QueryParams) returns (stream UserEntity);
