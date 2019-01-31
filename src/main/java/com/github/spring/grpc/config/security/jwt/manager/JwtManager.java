@@ -3,7 +3,9 @@ package com.github.spring.grpc.config.security.jwt.manager;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.github.spring.grpc.exception.InternalAppsException;
 import com.github.spring.grpc.view.model.JwtUserModel;
 import lombok.extern.log4j.Log4j2;
 
@@ -25,11 +27,15 @@ public class JwtManager {
     public static JwtUserModel validateToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(SECCRET);
         JWTVerifier verifier = JWT.require(algorithm).build();
-        DecodedJWT jwt = verifier.verify(token);
-        JwtUserModel jwtUserModel = new JwtUserModel();
-        jwtUserModel.setId(jwt.getClaim("id").asLong());
-        jwtUserModel.setUsername(jwt.getClaim("username").asString());
-        jwtUserModel.setRole(jwt.getClaim("roles").asString());
-        return jwtUserModel;
+        try {
+            DecodedJWT jwt = verifier.verify(token);
+            JwtUserModel jwtUserModel = new JwtUserModel();
+            jwtUserModel.setId(jwt.getClaim("id").asLong());
+            jwtUserModel.setUsername(jwt.getClaim("username").asString());
+            jwtUserModel.setRole(jwt.getClaim("roles").asString());
+            return jwtUserModel;
+        } catch (JWTVerificationException ex) {
+            throw new InternalAppsException("invalid token");
+        }
     }
 }
