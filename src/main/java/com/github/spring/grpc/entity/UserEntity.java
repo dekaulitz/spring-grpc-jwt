@@ -24,6 +24,7 @@ public class UserEntity {
     public String email;
     private String addres;
     private String password;
+    private String role;
 
     public org.grpc.proto.UserEntity toUserEntityProto() {
         return org.grpc.proto.UserEntity.newBuilder()
