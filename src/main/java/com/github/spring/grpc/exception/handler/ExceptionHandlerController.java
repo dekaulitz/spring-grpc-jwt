@@ -1,6 +1,7 @@
 package com.github.spring.grpc.exception.handler;
 
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.github.spring.grpc.exception.InternalAppsException;
 import com.github.spring.grpc.view.model.ErrorModel;
 import org.springframework.core.Ordered;

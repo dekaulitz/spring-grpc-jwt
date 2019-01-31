@@ -4,7 +4,6 @@ package com.github.spring.grpc.exception.handler;
 import com.github.spring.grpc.exception.InternalAppsException;
 import com.github.spring.grpc.view.model.ErrorModel;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,11 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 public class PageErorrHandlerController implements ErrorController {
 
     @RequestMapping("/error")
-    public HttpEntity handleError(HttpServletRequest request) {
-        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+    public ResponseEntity handleError(HttpServletRequest request) {
         Object exception = request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
         if (exception instanceof InternalAppsException) {
-            ErrorModel errorModel = new ErrorModel((HttpStatus) status, ((InternalAppsException) exception).getMessage(), ((InternalAppsException) exception).getLocalizedMessage());
+            ErrorModel errorModel = new ErrorModel(HttpStatus.INTERNAL_SERVER_ERROR, ((InternalAppsException) exception).getMessage(), ((InternalAppsException) exception).getLocalizedMessage());
             return new ResponseEntity<>(errorModel, errorModel.getStatus());
         }
         return null;
