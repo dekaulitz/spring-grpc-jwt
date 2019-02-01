@@ -23,8 +23,12 @@ public class PageErorrHandlerController implements ErrorController {
         if (exception instanceof InternalAppsException) {
             ErrorModel errorModel = new ErrorModel(HttpStatus.INTERNAL_SERVER_ERROR, ((InternalAppsException) exception).getMessage(), ((InternalAppsException) exception).getLocalizedMessage());
             return new ResponseEntity<>(errorModel, errorModel.getStatus());
+        } else if (exception instanceof RuntimeException) {
+            ErrorModel errorModel = new ErrorModel(HttpStatus.INTERNAL_SERVER_ERROR, ((RuntimeException) exception).getMessage(), ((InternalAppsException) exception).getLocalizedMessage());
+            return new ResponseEntity<>(errorModel, errorModel.getStatus());
+        } else {
+            return ResponseEntity.ok(exception);
         }
-        return null;
     }
 
     @Override
