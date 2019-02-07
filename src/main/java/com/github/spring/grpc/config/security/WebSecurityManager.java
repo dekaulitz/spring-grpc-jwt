@@ -1,9 +1,6 @@
 package com.github.spring.grpc.config.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.spring.grpc.config.security.jwt.manager.JwtAuthenticationEntryPoint;
-
 import com.github.spring.grpc.config.security.jwt.manager.JwtAuthenticationProvider;
 import com.github.spring.grpc.config.security.jwt.manager.JwtAuthenticationTokenFilter;
 import com.github.spring.grpc.config.security.jwt.manager.JwtSuccessHandler;
@@ -11,7 +8,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
